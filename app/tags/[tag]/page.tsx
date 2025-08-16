@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { getTagByName } from '@/lib/tags'
 import { getArticlesByTag } from '@/lib/articles'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Metadata } from 'next'
 
 interface TagPageProps {
@@ -78,11 +79,12 @@ export default async function TagPage({ params }: TagPageProps) {
                 }}
               >
                 {article.cover_image_url && (
-                  <div className="aspect-video overflow-hidden">
-                    <img
+                  <div className="aspect-video overflow-hidden relative">
+                    <Image
                       src={article.cover_image_url}
                       alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}

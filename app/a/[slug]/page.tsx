@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getArticleBySlug } from '@/lib/articles'
 import { ArticleGate } from '@/components/article-gate'
+import Image from 'next/image'
 import { Metadata } from 'next'
 
 interface ArticlePageProps {
@@ -41,11 +42,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* カバー画像 */}
         {article.cover_image_url && (
-          <div className="mb-8 rounded-3xl overflow-hidden shadow-xl">
-            <img
+          <div className="mb-8 rounded-3xl overflow-hidden shadow-xl relative h-80">
+            <Image
               src={article.cover_image_url}
               alt={article.title}
-              className="w-full h-80 object-cover"
+              fill
+              className="object-cover"
             />
           </div>
         )}

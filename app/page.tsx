@@ -1,6 +1,7 @@
 import { getArticles } from '@/lib/articles'
 import { getCategories } from '@/lib/categories'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default async function Home() {
   const articles = await getArticles(10)
@@ -86,11 +87,12 @@ export default async function Home() {
                   }}
                 >
                   {article.cover_image_url && (
-                    <div className="aspect-video overflow-hidden">
-                      <img
+                    <div className="aspect-video overflow-hidden relative">
+                      <Image
                         src={article.cover_image_url}
                         alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   )}
