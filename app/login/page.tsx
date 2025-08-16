@@ -12,7 +12,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { user } = useAuth()
-  const supabase = createClient()
 
   useEffect(() => {
     if (user) {
@@ -26,6 +25,7 @@ export default function LoginPage() {
     setMessage('')
 
     try {
+      const supabase = createClient()
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -50,6 +50,7 @@ export default function LoginPage() {
     setMessage('')
 
     try {
+      const supabase = createClient()
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {

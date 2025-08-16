@@ -8,9 +8,9 @@ import { useRouter } from 'next/navigation'
 export function Navigation() {
   const { user, loading } = useAuth()
   const router = useRouter()
-  const supabase = createClient()
 
   const handleLogout = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     router.push('/')
   }

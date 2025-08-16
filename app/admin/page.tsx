@@ -10,10 +10,10 @@ export default function AdminPage() {
   const { user, loading } = useAuth()
   const [articles, setArticles] = useState<Article[]>([])
   const [articlesLoading, setArticlesLoading] = useState(true)
-  const supabase = createClient()
 
   const loadArticles = useCallback(async () => {
     try {
+      const supabase = createClient()
       const { data, error } = await supabase
         .from('articles')
         .select(`
@@ -32,7 +32,7 @@ export default function AdminPage() {
     } finally {
       setArticlesLoading(false)
     }
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     if (user) {
@@ -49,6 +49,7 @@ export default function AdminPage() {
     }
 
     try {
+      const supabase = createClient()
       const { error } = await supabase
         .from('articles')
         .update(updates)
@@ -72,6 +73,7 @@ export default function AdminPage() {
     }
 
     try {
+      const supabase = createClient()
       const { error } = await supabase
         .from('articles')
         .delete()
