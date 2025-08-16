@@ -1,103 +1,141 @@
-import Image from "next/image";
+import { getArticles } from '@/lib/articles'
+import { getCategories } from '@/lib/categories'
+import Link from 'next/link'
 
-export default function Home() {
+export default async function Home() {
+  const articles = await getArticles(10)
+  const categories = await getCategories()
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20">
+      {/* ヒーローセクション */}
+      <header className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-50/50 to-blue-50/50"></div>
+        <div className="relative max-w-6xl mx-auto px-6 py-16">
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-teal-400 to-blue-500 rounded-3xl mb-6 shadow-lg">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent mb-6">
+              yakiimo-note
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              個人が執筆した記事をプラットフォーム上で公開し、<br />
+              ユーザーに閲覧してもらうNote風のWebアプリケーション
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* カテゴリセクション */}
+        {categories.length > 0 && (
+          <section className="mb-16">
+            <div className="flex items-center mb-8">
+              <div className="w-1 h-6 bg-gradient-to-b from-teal-400 to-blue-500 rounded-full mr-3"></div>
+              <h2 className="text-2xl font-bold text-gray-900">カテゴリ</h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {categories.map((category, index) => (
+                <Link
+                  key={category.id}
+                  href={`/c/${category.slug}`}
+                  className="group bg-white border border-gray-200 px-6 py-3 rounded-2xl hover:border-teal-300 hover:bg-teal-50 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    animation: 'fadeInUp 0.6s ease-out both'
+                  }}
+                >
+                  <span className="font-medium text-gray-700 group-hover:text-teal-700 transition-colors">
+                    {category.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* 記事セクション */}
+        <section>
+          <div className="flex items-center mb-8">
+            <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-red-500 rounded-full mr-3"></div>
+            <h2 className="text-2xl font-bold text-gray-900">最新記事</h2>
+          </div>
+          
+          {articles.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-3xl border border-gray-100 shadow-sm">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">まだ記事がありません</h3>
+              <p className="text-gray-500">管理画面から記事をインポートしてください</p>
+            </div>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {articles.map((article, index) => (
+                <article 
+                  key={article.id} 
+                  className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all duration-300 transform hover:-translate-y-1"
+                  style={{
+                    animationDelay: `${index * 150}ms`,
+                    animation: 'fadeInUp 0.8s ease-out both'
+                  }}
+                >
+                  {article.cover_image_url && (
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={article.cover_image_url}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="font-bold text-xl mb-3 line-clamp-2 leading-tight">
+                      <Link 
+                        href={`/a/${article.slug}`} 
+                        className="text-gray-900 hover:text-teal-600 transition-colors duration-200"
+                      >
+                        {article.title}
+                      </Link>
+                    </h3>
+                    {article.content_md && (
+                      <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">
+                        {article.content_md.slice(0, 120)}...
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        {article.category && (
+                          <span className="bg-gradient-to-r from-teal-100 to-blue-100 text-teal-700 px-3 py-1 rounded-full text-xs font-medium">
+                            {article.category.name}
+                          </span>
+                        )}
+                      </div>
+                      {article.published_at && (
+                        <time 
+                          dateTime={article.published_at}
+                          className="text-gray-400 text-xs font-medium"
+                        >
+                          {new Date(article.published_at).toLocaleDateString('ja-JP', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                          })}
+                        </time>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </div>
-  );
+  )
 }
